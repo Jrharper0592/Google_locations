@@ -1,0 +1,107 @@
+
+<html>
+
+
+<head>
+	 <title>Map testing</title>
+	 <meta charset="utf-8" />
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" scr="js/require.js"></script>
+	<script type="text/javascript" src="js/Functions.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/Map.css">
+  <!--<script type="text/javascript" src="js/Map.js"></script> -->
+  <!-- <script type="text/javascript" src="js/app.js"></script> -->
+	
+	    
+</head>
+<body>
+	
+	<h3>My Google Maps Demo</h3>
+	<div id="map"></div>
+
+	 <script>
+	 var locations = [
+      ['Location 1', 29.2604, -95.5698, 4],
+      ['Location 2', 29.9604, -95.5698, 5],
+      ['Location 3', 29.7604, -95.5698, 3],
+      ['Location 4', 29.7604, -95.7698, 2],
+      ['Location 5', 29.7604, -95.3698, 1],
+      ['Location 6', 29.7604, -95.1698, 1],
+      ['Location 7', 29.7604, -95.9698, 1],
+      ['Location 8', 29.1604, -95.3698, 1],
+      ['Location 9', 29.4604, -95.3698, 1],
+      ['Location 10', 29.5604, -95.3698, 1]
+    ];
+      var map;
+       function initMap() {
+        var cords = {lat: 29.7604, lng: -95.5698};
+  		var map = new google.maps.Map(document.getElementById('map'), {
+    		zoom: 8,
+    		center: new google.maps.LatLng(29.7604, -95.3698)
+	  });
+
+	  // var marker = new google.maps.Marker({
+	  //   position: cords,
+	  //   map: map
+	  // });
+	  var infowindow = new google.maps.InfoWindow();
+
+	  var marker, i;
+
+	  for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+      }
+  }
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQpNnBdcs2jgqVgojReU-UaWA7HGeo5tw&callback=initMap"
+    async defer></script>
+  </body>
+</body>
+</html>
+
+
+
+
+<!-- <script type="text/javascript">
+    var locations = [
+      ['Bondi Beach', -33.890542, 151.274856, 4],
+      ['Coogee Beach', -33.923036, 151.259052, 5],
+      ['Cronulla Beach', -34.028249, 151.157507, 3],
+      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+      ['Maroubra Beach', -33.950198, 151.259302, 1]
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(-33.92, 151.25),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    } -->
